@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html class="no-js" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="layout/main">
+	
+	<th:block layout:fragment="customHead">
+		<meta charset="UTF-8">
+		<title>Sample</title>
+		<th:block th:include="layout/customHead"></th:block>
+			<script>
+			$(document).ready(function(){
+				// account 버튼 클릭 이벤트
+				$('#accountListButton').click(function(){
+					console.log('계정과목 리스트버튼 테스트');
+					
+					$.ajax({
+			    		url : '/getAccount'
+			    		,type : 'get'
+			    		,success:function(data){
+						$('#accountList').empty();						
+						$(data).each(function(index,item){
+						$('#accountList').append('<tr>');
+						$('#accountList').append('<td>'+item.accountName+'</td>');
+						$('#accountList').append('<td>'+item.accountDate+'</td>');
+						$('#accountList').append('<td>'+item.memberId+'</td>');						
+						$('#accountList').append('</tr>');
+						});				
+						console.log(data);						
+					}    			
+    			});					
+			});
+				$('#accountAddButton').click(function(){				
+					console.log('계정과목 insert 테스트');
+						let accountName = $('#accountName').val();	            		
+	            		let memberId = $('#memberId').val();
+	            		
+	            		$.ajax({
+                		url : '/addAccount'
+                		,type : 'post'
+                		,data : {'accountName':accountName,'memberId':memberId}   	
+                		,success : function(){
+                			$('#accountListButton').trigger('click');
+                		console.log('#accountAddButton click');
+               		}                 
+				});	
+	 	
+			});
+				$('#accountListButton').trigger('click');
+		});		
+			
+			</script>
+	</th:block>
+	
+	<th:block layout:fragment="customBody">		
+		
+		<div class="card" style="min-height: 650px;">
+			<div class="card-header d-block">
+				<h3>계정과목</h3>
+					
+					<table border="1">
+						<thead>
+							<tr>								
+								<th>accountName</th>								
+								<th>memberId</th>								
+							</tr>
+						</thead>
+				        <tbody>
+							<tr>
+								<td><input type="text" id="accountName"></td>								
+								<td><input type="text" id="memberId"></td>				                
+				                <td><button type="button" id="accountAddButton">add</button></td>								
+							</tr>
+						</tbody>
+					</table>
+					
+					
+					<button type="button" id="accountListButton">List</button>
+			</div>
+			<div class="card-body p-0 table-border-style">
+				<div class="table-responsive">
+					<table class="table table-hover">
+						<thead>
+							<tr>
+								<th>accountName</th>								
+								<th>accountDate</th>
+								<th>memberId</th>								
+							</tr>
+						</thead>
+						<tbody id="accountList">
+							<!-- <tr th:each="accountList:${accountList}">				
+								<td th:text="${accountList.accountName}"></td>				
+								<td th:text="${accountList.accountDate}"></td>
+								<td th:text="${accountList.memberId}"></td>
+								<td><button type="button" id="accountModifyButton">Modify</button></td>
+								<td><button type="button" id="accountDeleteButton">Delete</button></td>				
+							</tr> -->												
+						</tbody>						
+					</table>				
+				</div>
+			</div>
+		</div>		
+		
+	</th:block>
+	
+	<th:block layout:fragment="customJquery">
+		<th:block th:include="layout/customJquery"></th:block>
+	</th:block>
+	
+</html>
