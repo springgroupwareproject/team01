@@ -7,6 +7,14 @@
 		<th:block th:include="layout/customHead"></th:block>
 			<script>
 			$(document).ready(function(){
+				
+				$('#hide').click(function(){
+					$('#accountAddList').hide();
+				});
+				$('#show').click(function(){
+					$('#accountAddList').show();
+				});
+				
 				// account 버튼 클릭 이벤트
 				$('#accountListButton').click(function(){
 					console.log('계정과목 리스트버튼 테스트');
@@ -55,11 +63,13 @@
 			<div class="card-header d-block">
 				<h3>계정과목</h3>
 					
-					<table border="1">
+					<table class="table table-hover" id="accountAddList">
 						<thead>
 							<tr>								
 								<th>accountName</th>								
-								<th>memberId</th>								
+								<th>memberId</th>
+								<th>add</th>	
+								<th>list</th>									
 							</tr>
 						</thead>
 				        <tbody>
@@ -67,12 +77,15 @@
 								<td><input type="text" id="accountName"></td>								
 								<td><input type="text" id="memberId"></td>				                
 				                <td><button type="button" id="accountAddButton">add</button></td>								
+								<td><button type="button" id="accountListButton">List</button></td>
 							</tr>
 						</tbody>
 					</table>
+					<button id="hide">Hide</button>
+					<button id="show">Show</button>
 					
 					
-					<button type="button" id="accountListButton">List</button>
+					
 			</div>
 			<div class="card-body p-0 table-border-style">
 				<div class="table-responsive">
