@@ -1,12 +1,15 @@
 <!DOCTYPE html>
 <html class="no-js" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="layout/main">
 	
+	<!-- jquery head 부분 넣는곳 -->
 	<th:block layout:fragment="customHead">
 		<meta charset="UTF-8">
 		<title>Sample</title>
 		<th:block th:include="layout/customHead"></th:block>
+		
 	</th:block>
 	
+	<!--  -->
 	<th:block layout:fragment="customBody">
 		<h2>제목</h2>	<br/>
 		<div>내용</div><br/>
