@@ -7,14 +7,14 @@
 		<result column="member_level_title" property="memberLevelTitle"/>
 		<result column="admin_name" property="adminName"/>
 		<result column="department_name" property="departmentName"/>
-		<result column="admin_level_management" property="adminLevelManagement"/>
-		<result column="admin_level_personnel" property="adminLevelPersonnel"/>
-		<result column="admin_level_finance" property="adminLevelFinance"/>
-		<result column="admin_level_workflow" property="adminLevelWorkflow"/>
-		<result column="admin_level_data" property="adminLevelData"/>
-		<result column="admin_level_cooperation" property="adminLevelCooperation"/>
-		<result column="admin_level_security" property="adminLevelSecurity"/>
-		<result column="admin_level_approval_process" property="adminLevelApprovalProcess"/>
+		<result column="admin_level_management" property="adminLevelManagement"/>	<!-- 조직관리 -->
+		<result column="admin_level_personnel" property="adminLevelPersonnel"/>	<!-- 인사관리  -->
+		<result column="admin_level_finance" property="adminLevelFinance"/> <!-- 재무관리  -->
+		<result column="admin_level_workflow" property="adminLevelWorkflow"/> <!-- 워크플로우 관리 -->
+		<result column="admin_level_data" property="adminLevelData"/> <!-- 데이터관리  -->
+		<result column="admin_level_cooperation" property="adminLevelCooperation"/> <!-- 협업관리  -->
+		<result column="admin_level_security" property="adminLevelSecurity"/> <!-- 요금 결제 관리  -->
+		<result column="admin_level_approval_process" property="adminLevelApprovalProcess"/> <!-- 보안관리  -->
 	</resultMap>
 	<select id="adminLevel" resultMap="adminLevel" >
 		SELECT 

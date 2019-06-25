@@ -18,8 +18,9 @@ public class PersonnelSetUpController {
 	
 	
 	@Autowired PersonnelSetUpService personnelSetUpService;
+	
 	/* 관리자 권한부여 매서드 */
-	@GetMapping("/adminLevel")
+	@GetMapping("admin/adminLevel")
 	public String adminLevel(HttpSession session, Model model) {
 		System.out.println("관리자별 권한부여 실행");
 		
@@ -37,7 +38,7 @@ public class PersonnelSetUpController {
 				System.out.println("마스터관리자님 환영합니다.");
 			}
 			if(memberLevelTitle.equals("슈퍼관리자")){
-				System.out.println("슈퍼관리자.. 음 .. ok확인");
+				System.out.println("슈퍼관리자님을 확인하였습니다. 어서오세요.");
 			}
 			
 			List<AdminLevel> adminLevel = personnelSetUpService.adminLevel();

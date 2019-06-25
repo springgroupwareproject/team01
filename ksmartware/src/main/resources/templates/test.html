@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html class="no-js" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="layout/main">
+	
+	<!-- jquery head 부분 넣는곳 -->
+	<th:block layout:fragment="customHead">
+		<meta charset="UTF-8">
+		<title>Sample</title>
+		<th:block th:include="layout/customHead"></th:block>
+		
+<script>
+$(document).ready(function() {
+			/* $('#checkBoxBtn').click(function() {
+				console.log("checkBoxBtn 클릭테스트!");
+				
+				// 클래스를사용하면this연산자 클릭한 아이디의 벨류값을 변수에 담는다
+				let adminLevelManagement  = $('#checkbox1').attr('value');
+				console.log("adminLevelManagement 체크 값 확인 "+adminLevelManagement);
+				
+				$.ajax({
+					url : '/adminLevelSave',
+					type : 'get',
+					data : {
+						adminLevelManagement:adminLevelManagement
+					}
+					
+				});
+				
+			}); */
+			
+			$('#checkBoxBtn').click(function() {
+				console.log('ttttt');
+				
+				let ck = new Array();
+				
+				let send_array = Array();
+				let send_cnt = 0;
+				let chkbox = $(".checkSelect");
+		
+				for(i=0;i<chkbox.length;i++) {
+				    
+				        send_array[send_cnt] = chkbox[i].value;
+				        send_cnt++;
+				}
+				
+				$("#array").val(send_array);
+				
+				console.log('send_array : ' + send_array);
+				
+				
+				
+			/* ============ List 구조 구현============ */
+			function List() {
+			
+			   this.elements = {};
+			
+			   this.idx = 0;
+			
+			   this.length = 0;
+			
+			}
+			
+			List.prototype.add = function(element) {
+			
+			   this.length++;
+			
+			   this.elements[this.idx++] = element;
+			
+			};
+			
+			
+			List.prototype.get = function(idx) {
+			
+			   return this.elements[idx];
+			
+			};
+			/* =========================== */
+			
+			
+			
+			
+				
+			
+			console.log(totalList);
+			
+			console.log(totalList.get(0));
+			
+			console.log(totalList.get(1));
+			
+			console.log(totalList.length);
+		
+			
+			
+		});
+					
+					
+});
+</script>
+		
+		
+	</th:block>
+	
+	<!--  -->
+	<th:block layout:fragment="customBody">
+		<h2>보안 관리 - 관리자 권한관리</h2><br/>
+		<!-- Single Switche 소스 적용 -->
+		<h5>관리자 권한관리</h5>
+		
+	<!-- test -->
+	<!--<div class="border-checkbox-section">
+		    <div class="border-checkbox-group border-checkbox-group-primary">
+		        <input class="border-checkbox" type="checkbox" id="checkbox1">
+		        <label class="border-checkbox-label" for="checkbox1">Primary</label>
+		    </div>
+		</div> -->		
+	           
+	
+	<div class="row">
+		<div class="col-md-12">
+		<!-- 부트스트립 적용 -->
+		<div class="card">
+	        <div class="card-header d-block">
+	            <h3>관리자 권한 관리</h3>
+	            <span>이곳은 <code>관리자권한</code>을 부여관리 하는곳입니다.</span>
+	        </div>
+	        <div class="card-body p-0 table-border-style">
+	            <div class="table-responsive">
+	                <table class="table table-hover" >
+	                    <thead>
+	                        <tr>
+				   				<td>분류</td>	
+				   				<td>이름</td>
+				   				<td>부서</td>
+				   				<td>조직 관리</td>
+				   				<td>인사관리</td>
+				   				<td>재무 관리</td>
+				   				<td>워크플로우 관리</td>
+				   				<td>데이터 관리</td>
+				   				<td>협업 관리</td>
+				   				<td>요금 결제 관리</td>
+				   				<td>보안 관리</td>	
+				   			</tr>
+	                    </thead>
+	                    <tbody>
+							<tr>
+								<!-- 관리자계급 -->
+								<td>슈퍼관리자</td>
+								<!-- 관리자이름 -->
+								<td>최정환</td> 
+								<!-- 조직원부서 -->
+								<td>기획팀</td>
+								
+							<!-- <td> 조직 관리 체크박스						
+									<div class="border-checkbox-section">
+			                		<div class="border-checkbox-group border-checkbox-group-primary">
+										<input class="border-checkbox" th:if="${adminLevel.adminLevelManagement == 'Y'}" type="checkbox" id="checkbox1" checked="checked">
+										<input class="border-checkbox" th:if="${adminLevel.adminLevelManagement == 'N'}" type="checkbox" id="checkbox1">
+				                    	<label class="border-checkbox-label" for="checkbox1">Disabled</label>
+			                    	</div> 
+			                    	</div>
+								</td> -->
+								
+								<!-- 조직 관리 체크박스 -->
+								
+								
+								
+								
+								<td>
+									<label class="container">
+										<input type="checkbox" id="checkbox1" checked="checked" name="box[]" th:class="checkSelect" value="Y">
+										
+										<span class="checkmark"></span>
+									</label>				
+								</td>
+								
+								<!-- 인사 관리 체크박스 -->	
+								<td>
+									<label class="container">
+										<input type="checkbox" id="checkbox2" checked="checked" name="box[]" th:class="checkSelect" value="Y">
+										
+										<span class="checkmark"></span>
+									</label>									
+								</td>
+								
+								<!-- 재무 관리 체크박스 -->	
+								<td>	
+			                    	<label class="container">
+										<input type="checkbox" id="checkbox3" checked="checked" name="box[]" th:class="checkSelect" value="Y">
+										
+										<span class="checkmark"></span>
+									</label>
+								</td>
+								
+								<!-- 워크플로우 관리 체크박스 -->	
+								<td>
+			                    	 <label class="container">
+										<input type="checkbox" id="checkbox4" checked="checked" name="box[]" th:class="checkSelect" value="N">
+										
+										<span class="checkmark"></span>
+									</label>
+								</td>
+								
+								<!-- 데이터 관리 체크박스 -->	
+								<td>	
+			                    	 <label class="container">
+										<input type="checkbox" id="checkbox5" checked="checked" name="box[]" th:class="checkSelect" value="N">
+										
+										<span class="checkmark"></span>
+									</label>
+								</td>
+								
+								<!-- 협업 관리 체크박스 -->	
+								<td>	
+			                    	 <label class="container">
+										<input type="checkbox" id="checkbox6" checked="checked" name="box[]" th:class="checkSelect" value="Y">
+										
+										<span class="checkmark"></span>
+									</label>
+								</td>
+								
+								<!-- 요금 결제관리 체크박스 -->	
+								<td>
+									<label class="container">
+										<input class="border-checkbox" type="checkbox" id="checkbox7" checked="checked" name="box[]" th:class="checkSelect" value="Y" >
+									
+										<span class="checkmark"></span>
+									</label>
+								</td>
+								
+								<!-- 보안 관리 체크박스 -->	
+								<td>
+									<label class="container">
+										<input class="border-checkbox" type="checkbox" id="checkbox8" checked="checked" name="box[]" th:class="checkSelect" value="Y">
+										
+										<span class="checkmark"></span>
+									</label>
+								</td>
+							</tr>							
+							<tr>
+								<td>
+									<button id="checkBoxBtn">저장</button>
+								</td>
+							</tr>
+	                    </tbody>
+	                </table>
+	            </div>
+	        </div>
+	    </div>
+		</div>
+	</div>
+		
+			
+
+
+
+
+	</th:block>
+	
+	<th:block layout:fragment="customJquery">
+		<th:block th:include="layout/customJquery"></th:block>
+	</th:block>
+	
+</html>
