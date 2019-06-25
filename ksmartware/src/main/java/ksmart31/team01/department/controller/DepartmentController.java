@@ -13,13 +13,13 @@ public class DepartmentController {
 	@Autowired
 	private DepartmentService departmentService;		
 	//조직도 리스트
-	@GetMapping(value="/departmentView")
+	@GetMapping(value="/department/departmentView")
 	public String getDepartmentList(Model model,String departmentName) {		
 		System.out.println(departmentName + "DepartmentController getDepartmentList [GET] departmentName");
 		Map<String,Object> returnMap = departmentService.getDepartmentList(departmentName);	
 		// 데이터를 html로 뿌려주기 위해 model로 묶는다
 		model.addAttribute("recursiveList", returnMap.get("recursiveList"));		
 		model.addAttribute("departmentJoinMemberList", returnMap.get("departmentJoinMemberList"));
-		return "department/departmentView";		
+		return "/department/departmentView";		
 	}	
 }

@@ -15,11 +15,11 @@ public class CustomerController {
 	@Autowired
 	private CustomerService customerService;
 	//customer 리스트
-	@GetMapping(value="/customerListView")
+	@GetMapping(value="/accounting/customerListView")
 	public String getCustomerList(Model model){
 		List<Customer> customerList = customerService.getCustomerList();
 		System.out.println(customerList + "CustomerController getCustomerList [get] customerList");
 		model.addAttribute("customerList", customerList);
-		return "accounting/customerListView";		
+		return "/accounting/customerListView";		
 	}	
 }

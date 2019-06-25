@@ -13,7 +13,7 @@ public class AccountController {
 	@Autowired
 	private AccountService accountService;
 	//account 리스트
-	@GetMapping(value="/accountListView")
+	@GetMapping(value="/accounting/accountListView")
 	public String getAccountList(Model model,@RequestParam(value="currentPage", required = false, defaultValue = "1")int currentPage){
 		Map<String,Object> map = accountService.getAccountList(currentPage);
 				

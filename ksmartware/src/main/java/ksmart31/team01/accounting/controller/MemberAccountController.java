@@ -15,11 +15,11 @@ public class MemberAccountController {
 	@Autowired
 	private MemberAccountService memberAccountService;
 	//memberAccount 리스트
-	@GetMapping(value="/memberAccountListView")
+	@GetMapping(value="/accounting/memberAccountListView")
 	public String getMemberAccountList(Model model){
 		List<MemberAccount> list = memberAccountService.getMemberAccountList();
 		System.out.println(list + "MemberAccountController getMemberAccountList [get] list");
 		model.addAttribute("memberAccountList", list);
-		return "accounting/memberAccountListView";
+		return "/accounting/memberAccountListView";
 	}	
 }
