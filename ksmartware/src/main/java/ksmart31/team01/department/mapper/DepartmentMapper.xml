@@ -4,7 +4,7 @@
  <!-- 조직도 재귀쿼리 -->
 <mapper namespace="ksmart31.team01.department.mapper.DepartmentMapper">
 	<!-- 재귀함수와 쿼리를 이용하여 조직도를 보여준다 -->
-	<select id="selectDepartmentList" resultType="ksmart31.team01.domain.Department">
+	<select id="selectDepartmentList" resultType="ksmart31.team01.department.domain.Department">
 		SELECT  CONCAT(REPEAT('-', level - 1), hi.department_name) AS departmentName		
 		FROM    (
 		        SELECT  hierarchy_connect_by_parentIdx_eq_prior_idx(idx) AS idx, @level AS level
@@ -21,7 +21,7 @@
 	</select>
 	
 	<!-- department부서명과 member조직원 기본정보를 departmentName으로 조인해서 가져온다 -->	
-	<resultMap type="ksmart31.team01.domain.DepartmentJoinMember" id="selectDepartmentJoinMemberList">
+	<resultMap type="ksmart31.team01.department.domain.DepartmentJoinMember" id="selectDepartmentJoinMemberList">
 		<result column="member_name" property="memberName"/>
 		<result column="member_level_title" property="memberLevelTitle"/>
 		<result column="department_category_name" property="departmentCategoryName"/>
@@ -35,7 +35,7 @@
 		<result column="member_address" property="memberAddress"/>
 		<result column="department_number" property="departmentNumber"/>		
 	</resultMap>	
-	<select id="selectDepartmentJoinMemberList" resultType="ksmart31.team01.domain.DepartmentJoinMember" parameterType="java.util.Map" resultMap="selectDepartmentJoinMemberList">
+	<select id="selectDepartmentJoinMemberList" resultType="ksmart31.team01.department.domain.DepartmentJoinMember" parameterType="java.util.Map" resultMap="selectDepartmentJoinMemberList">
 		SELECT
 			m.member_name
 			,m.member_level_title

@@ -5,8 +5,8 @@
 		<meta charset="UTF-8">
 		<title>Sample</title>
 		<th:block th:include="layout/customHead"></th:block>
-			<script>
-			$(document).ready(function(){
+		<script>
+			$(document).ready(function(){				
 				
 				$('#hide').click(function(){
 					$('#accountAddList').hide();
@@ -15,54 +15,99 @@
 					$('#accountAddList').show();
 				});
 				
-				// account 버튼 클릭 이벤트
+				// account 리스트 버튼 클릭 이벤트
+				let currentPage;
+    			let lastPage;
+				const firstPage = 1;
 				$('#accountListButton').click(function(){
 					console.log('계정과목 리스트버튼 테스트');
 					
 					$.ajax({
 			    		url : '/getAccount'
 			    		,type : 'get'
-			    		,success:function(data){
-						$('#accountList').empty();						
-						$(data).each(function(index,item){
-						$('#accountList').append('<tr>');
-						$('#accountList').append('<td>'+item.accountName+'</td>');
-						$('#accountList').append('<td>'+item.accountDate+'</td>');
-						$('#accountList').append('<td>'+item.memberId+'</td>');						
-						$('#accountList').append('</tr>');
-						});				
-						console.log(data);						
-					}    			
-    			});					
-			});
+			    		,data : {'currentPage':currentPage}						
+			    		,success:function(data){			    			
+							$('#accountList').empty();							
+							$(data.accountList).each(function(index,item){
+								$('#accountList').append('<tr>');
+								$('#accountList').append('<td>'+item.accountName+'</td>');
+								$('#accountList').append('<td>'+item.accountDate+'</td>');
+								$('#accountList').append('<td>'+item.memberId+'</td>');						
+								$('#accountList').append('</tr>');
+							});				
+							console.log(data.accountList);
+							console.log(data.selectCount);
+							console.log(data.lastPage);
+							console.log(data.currentPage);
+							
+							currentPage = data.currentPage;
+							lastPage = data.lastPage;
+							
+							$('.paging').empty();
+							if(currentPage > firstPage){
+								$('.paging').append('<button type="button" id="beforePage">이전</button>');
+							}
+							if(currentPage < lastPage){
+								$('.paging').append('<button type="button" id="nextPage">다음</button>');
+							}
+							$('#beforePage').click(function(){
+								console.log('#beforePage click !!!');
+								currentPage--;
+								$('#accountListButton').trigger('click');
+							});
+							$('#nextPage').click(function(){
+								console.log('#nextPage click !!!');
+								currentPage++;
+								$('#accountListButton').trigger('click');
+							});							
+						}
+    				});					
+				});
+				
+				//account add 버튼
 				$('#accountAddButton').click(function(){				
+					let accountName = $('#accountName').val();	            		
 					console.log('계정과목 insert 테스트');
-						let accountName = $('#accountName').val();	            		
-	            		let memberId = $('#memberId').val();
+            		let memberId = $('#memberId').val();
 	            		
-	            		$.ajax({
-                		url : '/addAccount'
-                		,type : 'post'
-                		,data : {'accountName':accountName,'memberId':memberId}   	
-                		,success : function(){
-                			$('#accountListButton').trigger('click');
-                		console.log('#accountAddButton click');
-               		}                 
-				});	
-	 	
-			});
-				$('#accountListButton').trigger('click');
-		});		
-			
-			</script>
+            		$.ajax({
+	               		url : '/addAccount'
+	               		,type : 'post'
+	               		,data : {'accountName':accountName,'memberId':memberId}   	
+	               		,success : function(){
+	               			$('#accountListButton').trigger('click');
+	               			console.log('#accountAddButton click');
+       					}                 
+					});	
+				});
+				
+				//$('#accountListButton').trigger('click');
+				$('#hide').trigger('click');
+				
+				//memberId 리스트 조회
+				
+				$('#memberId').click(function(){
+					console.log('memberId 클릭 테스트');
+					$.ajax({
+	               		url : '/getMemberId'
+	               		,type : 'get'
+	               		,success : function(data){
+	               			console.log(data);
+	               			$('#memberId').empty();
+	               			$(data).each(function(index,item){
+	               				$('#memberId').append('<option value="'+item.memberId+'">'+item.memberId+'</option>');
+	               			});
+       					}                 
+					});	
+				});
+			});				
+		</script>
 	</th:block>
 	
-	<th:block layout:fragment="customBody">		
-		
-		<div class="card" style="min-height: 650px;">
+	<th:block layout:fragment="customBody">				
+		<div class="card" style="min-height: 550px;">
 			<div class="card-header d-block">
-				<h3>계정과목</h3>
-					
+				<h3>계정과목</h3>					
 					<table class="table table-hover" id="accountAddList">
 						<thead>
 							<tr>								
@@ -75,17 +120,16 @@
 				        <tbody>
 							<tr>
 								<td><input type="text" id="accountName"></td>								
-								<td><input type="text" id="memberId"></td>				                
+								<td>
+									<select id="memberId"></select>
+								</td>				                
 				                <td><button type="button" id="accountAddButton">add</button></td>								
 								<td><button type="button" id="accountListButton">List</button></td>
 							</tr>
 						</tbody>
 					</table>
 					<button id="hide">Hide</button>
-					<button id="show">Show</button>
-					
-					
-					
+					<button id="show">Show</button>					
 			</div>
 			<div class="card-body p-0 table-border-style">
 				<div class="table-responsive">
@@ -106,11 +150,13 @@
 								<td><button type="button" id="accountDeleteButton">Delete</button></td>				
 							</tr> -->												
 						</tbody>						
-					</table>				
+					</table>
+					<div class="paging">
+    	
+   					</div>				
 				</div>
 			</div>
 		</div>		
-		
 	</th:block>
 	
 	<th:block layout:fragment="customJquery">
