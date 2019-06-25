@@ -7,7 +7,7 @@
 		<th:block th:include="layout/customHead"></th:block>
 		<script>
 			$(document).ready(function(){				
-				
+				// account 버튼 클릭 이벤트
 				$('#hide').click(function(){
 					$('#accountAddList').hide();
 				});
@@ -66,17 +66,17 @@
 				
 				//account add 버튼
 				$('#accountAddButton').click(function(){				
-					let accountName = $('#accountName').val();	            		
 					console.log('계정과목 insert 테스트');
-            		let memberId = $('#memberId').val();
+					let accountName = $('#accountName').val();      		
+            		let memberId = $('#accountMemberId').val();
 	            		
             		$.ajax({
 	               		url : '/addAccount'
 	               		,type : 'post'
 	               		,data : {'accountName':accountName,'memberId':memberId}   	
 	               		,success : function(){
-	               			$('#accountListButton').trigger('click');
 	               			console.log('#accountAddButton click');
+	               			$('#accountListButton').trigger('click');	               			
        					}                 
 					});	
 				});
@@ -86,16 +86,16 @@
 				
 				//memberId 리스트 조회
 				
-				$('#memberId').click(function(){
+				$('#accountMemberId').click(function(){
 					console.log('memberId 클릭 테스트');
 					$.ajax({
 	               		url : '/getMemberId'
 	               		,type : 'get'
 	               		,success : function(data){
 	               			console.log(data);
-	               			$('#memberId').empty();
+	               			$('#accountMemberId').empty();
 	               			$(data).each(function(index,item){
-	               				$('#memberId').append('<option value="'+item.memberId+'">'+item.memberId+'</option>');
+	               				$('#accountMemberId').append('<option value="'+item.memberId+'">'+item.memberId+'</option>');
 	               			});
        					}                 
 					});	
@@ -111,34 +111,33 @@
 					<table class="table table-hover" id="accountAddList">
 						<thead>
 							<tr>								
-								<th>accountName</th>								
-								<th>memberId</th>
-								<th>add</th>	
-								<th>list</th>									
+								<th>계정과목 이름</th>								
+								<th>등록자 아이디</th>																
 							</tr>
 						</thead>
 				        <tbody>
 							<tr>
 								<td><input type="text" id="accountName"></td>								
 								<td>
-									<select id="memberId"></select>
+									<select id="accountMemberId"></select>
 								</td>				                
-				                <td><button type="button" id="accountAddButton">add</button></td>								
-								<td><button type="button" id="accountListButton">List</button></td>
+				                
 							</tr>
 						</tbody>
 					</table>
-					<button id="hide">Hide</button>
-					<button id="show">Show</button>					
+					<button id="show">Show</button>
+					<button id="hide">Hide</button>					
+					<button type="button" id="accountAddButton">add</button>							
+					<button type="button" id="accountListButton">List</button>					
 			</div>
 			<div class="card-body p-0 table-border-style">
 				<div class="table-responsive">
 					<table class="table table-hover">
 						<thead>
 							<tr>
-								<th>accountName</th>								
-								<th>accountDate</th>
-								<th>memberId</th>								
+								<th>계정과목 이름</th>								
+								<th>등록날짜</th>
+								<th>등록자 아이디</th>								
 							</tr>
 						</thead>
 						<tbody id="accountList">

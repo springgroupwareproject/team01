@@ -1,4 +1,4 @@
-package ksmart31.team01.domain;
+package ksmart31.team01.accounting.domain;
 
 public class Customer {
 
@@ -79,8 +79,6 @@ public class Customer {
 				+ ", customerAddress=" + customerAddress + ", customerBank=" + customerBank + ", customerAccountHolder="
 				+ customerAccountHolder + ", customerAccountNumber=" + customerAccountNumber + ", customerDate="
 				+ customerDate + ", memberId=" + memberId + "]";
-	}
-	
-	
+	}	
 	
 }
